@@ -1,0 +1,7 @@
+:root {
+    --bg: var(--w-charcoal);
+    --dark-bg: var(--w-dark-blue);
+    --bright-bg: var(--w-light-blue);
+    --fg: var(--bright-white);
+    --bright-fg: var(--w-lilac);
+}
