@@ -7,16 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2022 Kaz Bishop</copyright>
-    <lastBuildDate>Sun, 04 Sep 2022 17:14:57 -0700</lastBuildDate><atom:link href="https://evillogic.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Testpost</title>
-      <link>https://evillogic.github.io/posts/testpost/</link>
-      <pubDate>Sun, 04 Sep 2022 17:14:57 -0700</pubDate>
-      
-      <guid>https://evillogic.github.io/posts/testpost/</guid>
-      <description>This is a test</description>
-    </item>
-    
+    <lastBuildDate>Sun, 04 Sep 2022 16:18:56 -0700</lastBuildDate><atom:link href="https://evillogic.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Edit the Blog</title>
       <link>https://evillogic.github.io/posts/edit-the-blog/</link>
@@ -25,9 +16,8 @@
       <guid>https://evillogic.github.io/posts/edit-the-blog/</guid>
       <description>clone the blog with
 git clone --recurse-submodules git@github.com:evillogic/infosec-blog.git create a new page with
-hugo new &amp;lt;page-name&amp;gt;.md Building the pages is simply hugo. You can then simply navigate to the public directory and push the change.
-pushd public git add . git commit -m &amp;#34;added some content&amp;#34; git push popd Or here is a handy alias
-alias update-blog=&amp;#39;f(){ pushd public; git add .; git commit -m &amp;#34;$@&amp;#34;; git push; popd; unset -f f; }; f&amp;#39; </description>
+hugo new &amp;lt;page-name&amp;gt;.md Building the pages is simply hugo, however due to submodule behavior we need to first checkout the master submodule branch. You can then simply navigate to the public directory and push the change.
+pushd public git checkout master popd hugo pushd public git add . git commit -m &amp;#34;added some content&amp;#34; git push popd git submodule update --remote --merge git add .</description>
     </item>
     
     <item>
