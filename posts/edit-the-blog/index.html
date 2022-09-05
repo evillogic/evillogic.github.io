@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>Posts &ndash; infosec blog</title>
+    <head><title>Edit the Blog &ndash; infosec blog</title>
 <meta name="description" content="A [hugo](https://gohugo.io) theme inspired by terminal ricing.">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -39,20 +39,25 @@
 </header>
 
             <section class="page__body">
-    <h1 id="posts">Posts</h1>
-
-    
-
-    <ul>
-    
-        <li><a href="https://evillogic.github.io/posts/edit-the-blog/">Edit the Blog</a></li>
-
-    
-        <li><a href="https://evillogic.github.io/posts/post1/">post1</a></li>
-
-    
-    </ul>
-
+    <header class="content__header">
+        <h1>Edit the Blog</h1>
+    </header>
+    <div class="content__body">
+        <p>clone the blog with</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">git clone --recurse-submodules git@github.com:evillogic/infosec-blog.git
+</code></pre></div><p>create a new page with</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">hugo new &lt;page-name&gt;.md
+</code></pre></div><p>Building the pages is simply <code>hugo</code>. You can then simply navigate to the public directory and push the change.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pushd public
+git add .
+git commit -m <span style="color:#e6db74">&#34;added some content&#34;</span>
+git push
+popd
+</code></pre></div><p>Or here is a handy alias</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias update-blog<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;f(){ pushd public; git add .; git commit -m &#34;$@&#34;; git push; popd; unset -f f; }; f&#39;</span>
+</code></pre></div>
+    </div>
+    <footer class="content__footer"></footer>
 
             </section>
 
@@ -83,6 +88,14 @@
 </div>
                 <hr>
                 <div class="aside__content">
+    
+    
+        <p>
+            
+            2022-09-04
+        </p>
+    
+
                 </div>
             </section>
 
