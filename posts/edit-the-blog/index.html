@@ -62,7 +62,7 @@ git add .
 git commit -m <span style="color:#e6db74">&#34;update the submodule pointer and add source content&#34;</span>
 git push
 </code></pre></div><p>Or here is a handy alias which can be invoked with an argument commit message</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias update-blog<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;f(){ pushd public; git checkout maseter; popd; hugo; pushd public; git add .; git commit -m &#34;$@&#34;; git push; popd; git submodule update --remore --merge; git add .; git commit -m &#34;$@&#34;; git push; unset -f f; }; f&#39;</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">alias update-blog<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;f(){ pushd public; git checkout master; popd; hugo; pushd public; git add .; git commit -m &#34;$@&#34;; git push; popd; git submodule update --remore --merge; git add .; git commit -m &#34;$@&#34;; git push; unset -f f; }; f&#39;</span>
 </code></pre></div>
     </div>
     <footer class="content__footer"></footer>
