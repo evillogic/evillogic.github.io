@@ -10,10 +10,10 @@
     <lastBuildDate>Sat, 03 Sep 2022 17:44:06 -0700</lastBuildDate><atom:link href="https://evillogic.github.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Executing Code on Python Package Installs - Malicious Pypi</title>
-      <link>https://evillogic.github.io/post/malicious-pypi/</link>
+      <link>https://evillogic.github.io/posts/malicious-pypi/</link>
       <pubDate>Thu, 08 Sep 2022 08:39:26 -0700</pubDate>
       
-      <guid>https://evillogic.github.io/post/malicious-pypi/</guid>
+      <guid>https://evillogic.github.io/posts/malicious-pypi/</guid>
       <description>#Foreword
 Multiple researchers in the community have given dependency confusion and other supply chain attacks a bad name recently. While there are very valid reasons to perform this attack, please do not pollute pypi or any other package manager with typosquatting, stolen code, or other non-targetted attacks in the name of security research. It&amp;rsquo;s no different than spreading malware. The point has been made. Please be responsible.
 #Executing code on package install</description>
