@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>Series &ndash; infosec blog</title>
+    <head><title>Posts &ndash; infosec blog</title>
 <meta name="description" content="A [hugo](https://gohugo.io) theme inspired by terminal ricing.">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,7 +31,7 @@
     
     <li class="main-nav__item"><a class="nav-main-item" href="/about/" title="">About</a></li>
     
-    <li class="main-nav__item"><a class="nav-main-item" href="/post/" title="Posts">Posts</a></li>
+    <li class="main-nav__item"><a class="nav-main-item active" href="/post/" title="Posts">Posts</a></li>
     
     <li class="main-nav__item"><a class="nav-main-item" href="/posts/" title="Posts">Posts</a></li>
     
@@ -41,14 +41,28 @@
 </header>
 
             <section class="page__body">
-    <h1 id="series">Series</h1>
+    <header class="content__header">
+        <h1>Posts</h1>
+        
+    </header>
 
     
+    <article class="post">
+        <header class="post__header">
+            <h1><a href="https://evillogic.github.io/post/malicious-pypi/">Executing Code on Python Package Installs - Malicious Pypi</a></h1>
+            <p class="post__meta">
+                ,
+                <span class="date">8 September 2022</span>
+            </p>
+        </header>
 
-    <ul>
+        <section class="post__summary">
+            #Foreword
+Multiple researchers in the community have given dependency confusion and other supply chain attacks a bad name recently. While there are very valid reasons to perform this attack, please do not pollute pypi or any other package manager with typosquatting, stolen code, or other non-targetted attacks in the name of security research. It&rsquo;s no different than spreading malware. The point has been made. Please be responsible.
+#Executing code on package install
+        </section>
+    </article>
     
-    </ul>
-
 
             </section>
 
