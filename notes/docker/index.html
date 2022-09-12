@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head><title>Notes &ndash; infosec blog</title>
+    <head><title>Install Docker On Ubuntu or Pop &ndash; infosec blog</title>
 <meta name="description" content="Thoughts and notes on security topics">
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,20 +41,27 @@
 </header>
 
             <section class="page__body">
-    <h1 id="notes">Notes</h1>
-
-    
-
-    <ul>
-    
-        <li><a href="https://evillogic.github.io/notes/docker/">Install Docker On Ubuntu or Pop</a></li>
-
-    
-        <li><a href="https://evillogic.github.io/notes/edit-the-blog/">Edit the Blog</a></li>
-
-    
-    </ul>
-
+    <header class="content__header">
+        <h1>Install Docker On Ubuntu or Pop</h1>
+    </header>
+    <div class="content__body">
+        <p>Simple copy and paste to install docker on Ubuntu as of 9/12/22</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">sudo apt-get update
+sudo apt-get install <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    ca-certificates <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    curl <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    gnupg <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    lsb-release
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+echo <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>  <span style="color:#e6db74">&#34;deb [arch=</span><span style="color:#66d9ef">$(</span>dpkg --print-architecture<span style="color:#66d9ef">)</span><span style="color:#e6db74"> signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+</span><span style="color:#e6db74">  </span><span style="color:#66d9ef">$(</span>lsb_release -cs<span style="color:#66d9ef">)</span><span style="color:#e6db74"> stable&#34;</span> | sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+sudo apt-get update
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+</code></pre></div>
+    </div>
+    <footer class="content__footer"></footer>
 
             </section>
 
@@ -85,6 +92,14 @@
 </div>
                 <hr>
                 <div class="aside__content">
+    
+    
+        <p>
+            
+            2022-09-12
+        </p>
+    
+
                 </div>
             </section>
 
