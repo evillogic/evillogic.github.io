@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2022 Kaz Bishop</copyright>
-    <lastBuildDate>Thu, 08 Sep 2022 08:39:26 -0700</lastBuildDate><atom:link href="https://evillogic.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Sep 2022 13:41:09 -0700</lastBuildDate><atom:link href="https://evillogic.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Selenium Grid RCE - Chrome on Linux</title>
+      <link>https://evillogic.github.io/posts/selenium-grid-rce/</link>
+      <pubDate>Mon, 12 Sep 2022 13:41:09 -0700</pubDate>
+      
+      <guid>https://evillogic.github.io/posts/selenium-grid-rce/</guid>
+      <description>Selenium is an awesome tool that you can use to completely drive a web browser through a nice and simple python interface. There&amp;rsquo;s lots of cool possibilities to use this for red teaming, however the simplest is that it can provide a trivial vector for RCE when unauthenticated.
+There are several publicly available exploits for Selenium Grid, however during testing I found that most of them were either low quality or do not work on unix environments due to the executable filesystem permission.</description>
+    </item>
+    
     <item>
       <title>Executing Code on Python Package Installs - Malicious Pypi</title>
       <link>https://evillogic.github.io/posts/malicious-pypi/</link>
