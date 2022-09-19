@@ -2,48 +2,48 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>index on infosec blog</title>
-    <link>https://evillogic.github.io/</link>
+    <link>https://blog.kazam.io/</link>
     <description>Recent content in index on infosec blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>© 2022 Kaz Bishop</copyright>
-    <lastBuildDate>Sat, 03 Sep 2022 17:44:06 -0700</lastBuildDate><atom:link href="https://evillogic.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Sep 2022 17:44:06 -0700</lastBuildDate><atom:link href="https://blog.kazam.io/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Selenium Grid RCE - Chrome on Linux</title>
-      <link>https://evillogic.github.io/posts/selenium-grid-rce/</link>
+      <link>https://blog.kazam.io/posts/selenium-grid-rce/</link>
       <pubDate>Mon, 12 Sep 2022 13:41:09 -0700</pubDate>
       
-      <guid>https://evillogic.github.io/posts/selenium-grid-rce/</guid>
+      <guid>https://blog.kazam.io/posts/selenium-grid-rce/</guid>
       <description>Selenium is an awesome tool that you can use to completely drive a web browser through a nice and simple python interface. There&amp;rsquo;s lots of cool possibilities to use this for red teaming, however the simplest is that it can provide a trivial vector for RCE when unauthenticated.
 There are several publicly available exploits for Selenium Grid, however during testing I found that most of them were either low quality or do not work on unix environments due to the executable filesystem permission.</description>
     </item>
     
     <item>
       <title>Install Docker On Ubuntu or Pop</title>
-      <link>https://evillogic.github.io/notes/docker/</link>
+      <link>https://blog.kazam.io/notes/docker/</link>
       <pubDate>Mon, 12 Sep 2022 13:05:07 -0700</pubDate>
       
-      <guid>https://evillogic.github.io/notes/docker/</guid>
+      <guid>https://blog.kazam.io/notes/docker/</guid>
       <description>Simple copy and paste to install docker on Ubuntu as of 9/12/22
 sudo apt-get update sudo apt-get install \  ca-certificates \  curl \  gnupg \  lsb-release sudo mkdir -p /etc/apt/keyrings curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg echo \  &amp;#34;deb [arch=$(dpkg --print-architecture)signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs)stable&amp;#34; | sudo tee /etc/apt/sources.list.d/docker.list &amp;gt; /dev/null sudo apt-get update sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin https://docs.docker.com/engine/install/ubuntu/</description>
     </item>
     
     <item>
       <title>Executing Code on Python Package Installs - Malicious Pypi</title>
-      <link>https://evillogic.github.io/posts/malicious-pypi/</link>
+      <link>https://blog.kazam.io/posts/malicious-pypi/</link>
       <pubDate>Thu, 08 Sep 2022 08:39:26 -0700</pubDate>
       
-      <guid>https://evillogic.github.io/posts/malicious-pypi/</guid>
+      <guid>https://blog.kazam.io/posts/malicious-pypi/</guid>
       <description>Foreword Multiple researchers in the community have given dependency confusion and other supply chain attacks a bad name recently. While there are very valid reasons to perform this attack, please do not pollute pypi or any other package manager with typosquatting, stolen code, or other non-targetted attacks in the name of security research. It&amp;rsquo;s no different than spreading malware. The point has been made. Please be responsible.
 Executing code on package install While most python packages are distributed as wheels, the &amp;ldquo;binary&amp;rdquo; distribution format, Pypi also enables developers to distribute their package as source distributions (or sdist).</description>
     </item>
     
     <item>
       <title>Edit the Blog</title>
-      <link>https://evillogic.github.io/notes/edit-the-blog/</link>
+      <link>https://blog.kazam.io/notes/edit-the-blog/</link>
       <pubDate>Sun, 04 Sep 2022 16:18:56 -0700</pubDate>
       
-      <guid>https://evillogic.github.io/notes/edit-the-blog/</guid>
+      <guid>https://blog.kazam.io/notes/edit-the-blog/</guid>
       <description>clone the blog with
 git clone --recurse-submodules git@github.com:evillogic/infosec-blog.git create a new page with
 hugo new &amp;lt;page-name&amp;gt;.md Building the pages is simply hugo, however due to submodule behavior we need to first checkout the master submodule branch. You can then simply navigate to the public directory and push the change.
@@ -52,10 +52,10 @@ pushd public git checkout master popd hugo pushd public git add . git commit -m 
     
     <item>
       <title>About</title>
-      <link>https://evillogic.github.io/about/</link>
+      <link>https://blog.kazam.io/about/</link>
       <pubDate>Sat, 03 Sep 2022 16:59:40 -0700</pubDate>
       
-      <guid>https://evillogic.github.io/about/</guid>
+      <guid>https://blog.kazam.io/about/</guid>
       <description>hi there</description>
     </item>
     
