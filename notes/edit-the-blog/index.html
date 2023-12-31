@@ -6,12 +6,12 @@
 </span></span><span style=display:flex><span>popd
 </span></span><span style=display:flex><span>hugo
 </span></span><span style=display:flex><span>pushd public
-</span></span><span style=display:flex><span>git add .
+</span></span><span style=display:flex><span>git add -A
 </span></span><span style=display:flex><span>git commit -m <span style=color:#e6db74>&#34;added some content&#34;</span>
 </span></span><span style=display:flex><span>git push
 </span></span><span style=display:flex><span>popd
 </span></span><span style=display:flex><span>git submodule update --remote --merge
-</span></span><span style=display:flex><span>git add .
+</span></span><span style=display:flex><span>git add -A
 </span></span><span style=display:flex><span>git commit -m <span style=color:#e6db74>&#34;update the submodule pointer and add source content&#34;</span>
 </span></span><span style=display:flex><span>git push
 </span></span></code></pre></div><p>Or here is a handy alias which can be invoked with an argument commit message</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>alias update-blog<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;f(){ pushd public; git checkout master; popd; hugo; pushd public; git add .; git commit -m &#34;$@&#34;; git push; popd; git submodule update --remore --merge; git add .; git commit -m &#34;$@&#34;; git push; unset -f f; }; f&#39;</span>
