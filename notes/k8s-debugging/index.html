@@ -1,0 +1,127 @@
+<!doctype html><html lang=en><head><title>Kubernetes Debugging &ndash; infosec blog</title>
+<meta name=description content="Thoughts and notes on security topics"><meta name=viewport content="width=device-width,initial-scale=1"><meta charset=utf-8><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin=anonymous><link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin=anonymous><link rel=stylesheet href=https://blog.kazam.io/css/colour/wooper.css><link rel=stylesheet href=https://blog.kazam.io/css/colour/wooper-mode.css><link rel=stylesheet href=https://blog.kazam.io/css/risotto.css><link rel=stylesheet href=https://blog.kazam.io/css/custom.css></head><body><div class=page><header class=page__header><h1 class=page__logo><a href=https://blog.kazam.io class=page__logo-inner>infosec blog</a></h1><nav class="page__nav main-nav"><ul><li class=main-nav__item><a class=nav-main-item href=/about/ title>About</a></li><li class=main-nav__item><a class="nav-main-item active" href=/notes/ title=Notes>Notes</a></li><li class=main-nav__item><a class=nav-main-item href=/posts/ title=Posts>Posts</a></li></ul></nav></header><section class=page__body><header class=content__header><h1>Kubernetes Debugging</h1></header><div class=content__body><h2 id=print-kubectl-logs-from-deployment-or-scaled-job>Print kubectl logs from deployment or scaled-job</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>kubectl logs -l scaledjob.keda.sh/name<span style=color:#f92672>=</span>httpx-scaledjob --follow --max-log-requests <span style=color:#ae81ff>500</span>
+</span></span></code></pre></div><h2 id=creating-an-ubuntu-pod>Creating an Ubuntu Pod</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cat <span style=color:#e6db74>&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>apiVersion: v1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>kind: Pod
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  name: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  labels:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    app: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>spec:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  containers:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - image: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    command:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;sleep&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;604800&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    imagePullPolicy: IfNotPresent
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    name: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  restartPolicy: Always
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></code></pre></div><p><code>kubectl exec -it ubuntu -- /bin/bash</code></p><h1 id=privileged-with-service-account-and-host-networking>Privileged with service account and host networking</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cat <span style=color:#e6db74>&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>apiVersion: v1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>kind: Pod
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  name: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  labels:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    app: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>spec:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  hostNetwork: true
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  serviceAccountName: httpx-service-account
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  containers:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - image: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    command:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;sleep&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;604800&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    imagePullPolicy: IfNotPresent
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    name: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    securityContext:  
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      privileged: true
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  restartPolicy: Always
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></code></pre></div><p>maybe only try this at home kids</p><h1 id=with-volumes-mounted>With volumes mounted</h1><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cat <span style=color:#e6db74>&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>apiVersion: v1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>kind: Pod
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  name: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  labels:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    app: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>spec:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  hostNetwork: true
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  serviceAccountName: httpx-service-account
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  containers:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - image: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    command:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;sleep&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;604800&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    imagePullPolicy: IfNotPresent
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    name: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    securityContext:  
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      privileged: true
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    volumeMounts:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - name: screenshots
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        mountPath: /screenshots
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - name: assets
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        mountPath: /assets
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  volumes:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    - name: screenshots
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      hostPath:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        path: /shared/screenshots
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    - name: assets
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      hostPath:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        path: /shared/assets
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  restartPolicy: Always
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></code></pre></div><h2 id=pod-with-a-secret>Pod with a Secret</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-yaml data-lang=yaml><span style=display:flex><span><span style=color:#ae81ff>cat &lt;&lt;EOF | kubectl apply -f -</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>apiVersion</span>: <span style=color:#ae81ff>v1</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>kind</span>: <span style=color:#ae81ff>Secret</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>metadata</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>name</span>: <span style=color:#ae81ff>admin-creds</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>data</span>:
+</span></span><span style=display:flex><span>  <span style=color:#f92672>username</span>: <span style=color:#ae81ff>bXktYXBw</span>
+</span></span><span style=display:flex><span>  <span style=color:#f92672>password</span>: <span style=color:#ae81ff>Mzk1MjgkdmRnN0pi</span>
+</span></span><span style=display:flex><span><span style=color:#ae81ff>EOF</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cat <span style=color:#e6db74>&lt;&lt;EOF | kubectl apply -f -
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>apiVersion: v1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>kind: Pod
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  name: important-app
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  labels:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    app: important-app
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>spec:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  containers:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - image: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    command:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;sleep&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      - &#34;6048000&#34;
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    imagePullPolicy: IfNotPresent
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    name: ubuntu
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    env:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>    - name: SECRET_PASSWORD
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>      valueFrom:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>        secretKeyRef:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          name: admin-creds
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>          key: password
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  restartPolicy: Always
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></code></pre></div><h2 id=imdsv2>IMDSv2</h2><pre tabindex=0><code>TOKEN=`curl -X PUT &#34;http://169.254.169.254/latest/api/token&#34; -H &#34;X-aws-ec2-metadata-token-ttl-seconds: 21600&#34;` 
+curl http://169.254.169.254/latest/meta-data/profile -H &#34;X-aws-ec2-metadata-token: $TOKEN&#34;
+</code></pre><p>USER DATA</p><pre tabindex=0><code>TOKEN=`curl -X PUT &#34;http://169.254.169.254/latest/api/token&#34; -H &#34;X-aws-ec2-metadata-token-ttl-seconds: 21600&#34;` 
+curl http://169.254.169.254/latest/user-data/ -H &#34;X-aws-ec2-metadata-token: $TOKEN&#34;
+</code></pre><h2 id=creating-a-csr-for-a-node>Creating a CSR for a node</h2><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>openssl req -nodes -newkey rsa:2048 -keyout k8shack.key -out k8shack.csr -subj <span style=color:#e6db74>&#34;/O=system:nodes/CN=system:node:&lt;node&gt;&#34;</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>cat <span style=color:#e6db74>&lt;&lt;EOF | ./kubectl --kubeconfig k create -f -
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>apiVersion: certificates.k8s.io/v1
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>kind: CertificateSigningRequest
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>metadata:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  name: node-csr-$(date +%s)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>spec:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  signerName: kubernetes.io/kube-apiserver-client-kubelet
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  groups:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - system:nodes
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  request: $(cat k8shack.csr | base64 | tr -d &#39;\n&#39;)
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  usages:
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - digital signature
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - key encipherment
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>  - client auth
+</span></span></span><span style=display:flex><span><span style=color:#e6db74>EOF</span>
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>./kubectl --kubeconfig k get csr node-csr-1543524743 -o jsonpath<span style=color:#f92672>=</span><span style=color:#e6db74>&#39;{.status.certificate}&#39;</span> | base64 -d &gt; node2.crt
+</span></span></code></pre></div><p>Note: I don&rsquo;t think EKS supports this, have never gotten this working right</p></div><footer class=content__footer></footer></section><section class=page__aside><div class=aside__about><div class=aside__about><img class=about__logo src=https://blog.kazam.io/images/rice.svg alt=Logo><h1 class=about__title>infosec blog</h1><p class=about__description>Thoughts and notes on security topics</p></div><ul class=aside__social-links><li><a href=https://github.com/evillogic rel=me aria-label=GitHub title=GitHub><i class="fab fa-github" aria-hidden=true></i></a>&nbsp;</li><li><a href=mailto:evillogic1@gmail.com rel=me aria-label=Email title=Email><i class="fas fa-envelope" aria-hidden=true></i></a>&nbsp;</li><li><a href=#ZgotmplZ rel=me aria-label="Happy Hacking!" title="Happy Hacking!"><i class="ai ai-arxiv" aria-hidden=true></i></a>&nbsp;</li></ul></div><hr><div class=aside__content><p>2023-12-30</p></div></section><footer class=page__footer><p class=copyright>© 2022 Kaz Bishop</p><p class=advertisement>Powered by <a href=https://gohugo.io/>hugo</a> and <a href=https://github.com/joeroe/risotto>risotto</a>.</p><script defer language=javascript type=text/javascript src=/js/copy.js></script></footer></div></body></html>
