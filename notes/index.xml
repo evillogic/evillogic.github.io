@@ -21,4 +21,12 @@ sudo apt-get update sudo apt-get install \ ca-certificates \ curl \ gnupg \ lsb-
 git clone --recurse-submodules git@github.com:evillogic/infosec-blog.git create a new page with
 hugo new &amp;lt;page-name&amp;gt;.md Building the pages is simply hugo, however due to submodule behavior we need to first checkout the master submodule branch. You can then simply navigate to the public directory and push the change.
 The workflow looks something like this:
-build the new content the new content is written to the public folder, a submodule pointing to evillogic/evillogic.</description></item></channel></rss>
+build the new content the new content is written to the public folder, a submodule pointing to evillogic/evillogic.</description></item><item><title>Windows Hardening Stuff</title><link>https://blog.kazam.io/notes/windows-hardening/</link><pubDate>Tue, 15 Oct 2019 00:00:00 +0000</pubDate><guid>https://blog.kazam.io/notes/windows-hardening/</guid><description>This is a random list of notes for Windows Hardening
+Against Responder
+“Turn off multicast name resolution” Enabled
+Don’t need SMB? Turn it off
+From Services.msc Disable and Stop “Server” AKA LanmanServer. Restart.
+Need SMB but worried about Eternal Blue?
+Set-SmbServerConfiguration -EnableSMB1Protocol $false
+Fuck it why not just turn it all off for good measure?
+Set-SmbServerConfiguration -EnableSMB2Protocol $false</description></item></channel></rss>
