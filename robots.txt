@@ -1,1 +1,4 @@
 User-agent: *
+Disallow: /series*
+Disallow: /categories*
+Disallow: /tags*
